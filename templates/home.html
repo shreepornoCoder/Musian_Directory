@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div style="display: flex; justify-content: space-around; margin-top: 20px; margin-bottom: 20px;">
+    <div>
+        <h1 style="margin-top: 200px;">Welcome to my Website</h1>
+        <p class="text-center">Hope You Will Enjoy It!</p>
+    </div>
+    <div>
+        <img src='{% static "D:\Phitron\SDT\Django\practice_module_15_5\static\musians.png" %}' style="width: 400px;">
+    </div>
+</div>
+<hr>
+
+<table class="table table-striped-columns">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Album Rating</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release Date</th>
+        <th scope="col">Release Actions</th>
+      </tr>
+    </thead>
+    {% for value in data %}
+    <tbody>
+      <tr>
+        <th scope="row">{{value.album_id}}</th>
+        <td>{{value.musician.first_name}}</td>
+        <td>{{value.musician.email}}</td>
+        <td>{{value.rating}}</td>
+        <td>{{value.musician.instrument}}</td>
+        <td>{{value.album_title}}</td>
+        <td>{{value.release_date}}</td>
+        <td><a href="{% url "edit_post" value.album_id %}" class="btn btn-success">Edit</a>
+            <a href="{% url "delete_post" value.album_id %}" class="btn btn-danger">Delete</a></td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% endblock %}
