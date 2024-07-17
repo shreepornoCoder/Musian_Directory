@@ -7,23 +7,35 @@
         <p class="text-center">Hope You Will Enjoy It!</p>
     </div>
     <div>
-        <img src='{% static "D:\Phitron\SDT\Django\practice_module_15_5\static\musians.png" %}' style="width: 400px;">
+        <img src="{% static 'D:/Phitron/SDT/Django/Musian Directory/static/musians.png' %}" style="width: 400px;">
     </div>
 </div>
 <hr>
 
 <table class="table table-striped-columns">
     <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Musician Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Album Rating</th>
-        <th scope="col">Instrument Type</th>
-        <th scope="col">Album Name</th>
-        <th scope="col">Release Date</th>
-        <th scope="col">Release Actions</th>
-      </tr>
+      {% if user.is_authenticated %}
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Musician Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Album Rating</th>
+          <th scope="col">Instrument Type</th>
+          <th scope="col">Album Name</th>
+          <th scope="col">Release Date</th>
+          <th scope="col">Release Actions</th>
+        </tr>
+      {% else %}
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Musician Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Album Rating</th>
+          <th scope="col">Instrument Type</th>
+          <th scope="col">Album Name</th>
+          <th scope="col">Release Date</th>
+        </tr>
+      {% endif %}
     </thead>
     {% for value in data %}
     <tbody>
@@ -35,8 +47,10 @@
         <td>{{value.musician.instrument}}</td>
         <td>{{value.album_title}}</td>
         <td>{{value.release_date}}</td>
-        <td><a href="{% url "edit_post" value.album_id %}" class="btn btn-success">Edit</a>
-            <a href="{% url "delete_post" value.album_id %}" class="btn btn-danger">Delete</a></td>
+        {% if user.is_authenticated %}
+          <td><a href="{% url "edit_post" value.album_id %}" class="btn btn-success">Edit</a>
+              <a href="{% url "delete_post" value.album_id %}" class="btn btn-danger">Delete</a></td>
+        {% endif %}
       </tr>
     </tbody>
     {% endfor %}
